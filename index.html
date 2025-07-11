@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Zeynep & Vedat – Düğün Davetiyesi</title>
+  <title>Zeynep & Vedat – Düğün Davetiyesi</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,17 +11,19 @@
 
   <style>
     :root {
-      --accent: #b4936c;  
-      --bg:     #faf8f6;
-      --text:   #333;
+      --accent: #b4936c;
+      --bg:      #faf8f6;
+      --text:    #333;
     }
     * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: 'Lato', sans-serif;
-      background: var(--bg);
+      background: var(--bg) url('bg.jpg') no-repeat center center fixed;
+      background-size: cover;
       color: var(--text);
       line-height: 1.6;
+      background-attachment: fixed;
     }
     header {
       text-align: center;
@@ -35,13 +37,14 @@
     }
     header p { font-size: 1.25rem; color: var(--accent); margin: 0; }
 
-    main   { width: min(90%, 800px); margin: 0 auto; padding: 2rem 0; }
+    main    { width: min(90%, 800px); margin: 0 auto; padding: 2rem 0; }
     .card  {
-      background: #fff;
+      background: rgba(255, 255, 255, 0.92);
       border-radius: 12px;
       padding: 2rem;
       box-shadow: 0 4px 12px rgba(0,0,0,.05);
       margin-bottom: 2rem;
+      border: 1.5px solid #e8d8c3;
     }
     .card h2 {
       margin: 0 0 .8rem;
@@ -62,113 +65,230 @@
 
     #video { text-align: center; padding: 2rem 1rem 4rem; }
     #video h2 { font-family: 'Playfair Display', serif; color: var(--accent); }
-    video, iframe.video { max-width: 100%; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,.05); }
+    video, iframe.video {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,.05);
+    }
     #video video {
-    width: 100%;           
-    max-width: 420px;      
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0,0,0,.05);
-    display: block;
-    margin-inline: auto;   
-    }
-    .map-container {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 4 / 3;  /* or 16 / 9 */
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    }
-    .map-container iframe {
-    width: 100%;
-    height: 100%;
-    border: 0;
-    display: block;
+      width: 100%;
+      max-width: 420px;
+      display: block;
+      margin-inline: auto;
     }
 
+    .map-container {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 3;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    .map-container iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      display: block;
+    }
+
+    .heart-row {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem; /* Increased bottom margin for spacing */
+      gap: 2rem; /* This adds space between the two hearts */
+    }
+
+    .heart-option {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .heart-option input {
+      display: none;
+    }
+
+    .heart {
+      display: inline-block;
+      width: 60px;
+      height: 60px;
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg"><path fill="%23ddd" d="M23.6,0c-3.1,0-5.9,1.9-7.6,4.9C14.3,1.9,11.5,0,8.4,0C3.8,0,0,3.8,0,8.4c0,5.3,4.4,9.1,11.1,15l3.4,3.2l3.4-3.2C27.6,17.5,32,13.7,32,8.4C32,3.8,28.2,0,23.6,0z"/></svg>') no-repeat center;
+      background-size: contain;
+      transition: background 0.3s ease;
+    }
+
+    .heart-option input:checked + .heart.yes {
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg"><path fill="%23ff6699" d="M23.6,0c-3.1,0-5.9,1.9-7.6,4.9C14.3,1.9,11.5,0,8.4,0C3.8,0,0,3.8,0,8.4c0,5.3,4.4,9.1,11.1,15l3.4,3.2l3.4-3.2C27.6,17.5,32,13.7,32,8.4C32,3.8,28.2,0,23.6,0z"/></svg>') no-repeat center;
+    }
+
+    .heart-option input:checked + .heart.no {
+      background: url('data:image/svg+xml;utf8,<svg viewBox="0 0 32 29.6" xmlns="http://www.w3.org/2000/svg"><path fill="%23999999" d="M23.6,0c-3.1,0-5.9,1.9-7.6,4.9C14.3,1.9,11.5,0,8.4,0C3.8,0,0,3.8,0,8.4c0,5.3,4.4,9.1,11.1,15l3.4,3.2l3.4-3.2C27.6,17.5,32,13.7,32,8.4C32,3.8,28.2,0,23.6,0z"/></svg>') no-repeat center;
+    }
+
+    #rsvp form {
+      text-align: center;
+    }
+
+    /* --- START OF CHANGES --- */
+
+    /* This rule now ONLY targets labels with the .form-field class */
+    #rsvp .form-field {
+      display: block;
+      margin-bottom: 1.2rem;
+      text-align: left;
+      width: 80%;
+      margin-inline: auto;
+    }
+    
+    /* Make inputs inside .form-field take up the full width of their parent */
+    #rsvp .form-field input[type="text"],
+    #rsvp .form-field input[type="number"],
+    #rsvp .form-field textarea,
+    #rsvp .form-field select {
+      display: block;
+      margin-top: 0.4rem;
+      width: 100%;
+      padding: 0.5rem;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+    
+    /* This rule was removed because its functionality is now inside the one above */
+    /* #rsvp input[type="text"], etc. { ... } */
+
+    /* --- END OF CHANGES --- */
+
+    #rsvp textarea {
+      resize: vertical;
+    }
+
+    #rsvp input[type="checkbox"] {
+      transform: scale(1.2);
+      margin-right: 0.5rem;
+    }
+
+    #rsvp h2 {
+      font-family: 'Playfair Display', serif;
+      color: var(--accent);
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
   </style>
 </head>
 <body>
+
   <header>
-    <h1>Zeynep&nbsp;&amp;&nbsp;Vedat</h1>
+    <h1>Zeynep & Vedat</h1>
     <p>Dünyada güzel bir ana tanıklık etmeye davetlisiniz</p>
   </header>
 
-    <section id="video">
-        <video id="wedding‑video"
-                src="video.mp4"
-                preload="auto"
-                muted            
-                loop           
-                playsinline      
-                controls>       
-            Your browser does not support the video tag.
-        </video>
-    </section>
-    
+  <section id="video">
+    <video id="wedding‑video"
+           src="video.mp4"
+           preload="auto"
+           muted
+           loop
+           playsinline
+           controls>
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
   <main>
+
     <section class="card" id="preparty">
       <h2>Erkek Kınası</h2>
-
       <div class="meta">
-        <div>📅 <time datetime="2025-07-19T19:00:00+03:00">19&nbsp;Temmuz&nbsp;2025</time></div>
+        <div>📅 <time datetime="2025-07-19T19:00:00+03:00">19 Temmuz 2025</time></div>
         <div>⏰ 19:00</div>
         <div class="countdown" id="countdown-preparty"></div>
       </div>
-
       <div class="meta">
         <div>📍 Ağaçeli Köyü</div>
       </div>
-        <div class="map-container">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3103.742893589545!2d40.70595772780609!3d38.92985367985408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzjCsDU1JzQ3LjkiTiA0MMKwNDInMjMuMiJF!5e0!3m2!1str!2str!4v1751469762022!5m2!1str!2str"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade">
-            </iframe>
-        </div>
-
+      <div class="map-container">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3103.742893589545!2d40.70595772780609!3d38.92985367985408!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzjCsDU1JzQ3LjkiTiA0MMKwNDInMjMuMiJF!5e0!3m2!1str!2str!4v1751469762022!5m2!1str!2str"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </section>
 
     <section class="card" id="wedding">
       <h2>Düğün</h2>
-
       <div class="meta">
-        <div>📅 <time datetime="2025-07-21T17:00:00+03:00">21&nbsp;Temmuz&nbsp;2025</time></div>
+        <div>📅 <time datetime="2025-07-21T17:00:00+03:00">21 Temmuz 2025</time></div>
         <div>⏰ 19:00</div>
         <div class="countdown" id="countdown-wedding"></div>
       </div>
-
       <div class="meta">
         <div>📍 Diamond Düğün Sarayı</div>
       </div>
-    <div class="map-container">
+      <div class="map-container">
         <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2722.863101359336!2d40.49653924344559!3d38.874972033049055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4073c571c25ec117%3A0xa392b01a69497579!2zRGlhbW9uZCBEw7zEn8O8biBTYXJhecSx!5e0!3m2!1str!2str!4v1751465382297!5m2!1str!2str"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-    </div>
-    
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2722.863101359336!2d40.49653924344559!3d38.874972033049055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4073c571c25ec117%3A0xa392b01a69497579!2zRGlhbW9uZCBEw7zEn8O8biBTYXJhecSx!5e0!3m2!1str!2str!4v1751465382297!5m2!1str!2str"
+          allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
     </section>
 
+    <section class="card" id="rsvp">
+      <h2>Katılım Formu</h2>
+      <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="b0edd008-3363-47b6-a0ea-1295cf23a843">
+        <input type="hidden" name="subject" value="Düğün için yeni bir katılım formu dolduruldu!">
+        <input type="hidden" name="from_name" value="Düğün Formu">
+
+        <div class="heart-row">
+          <label class="heart-option">
+            <input type="radio" name="rsvp" value="Katılacağım" required>
+            <span class="heart yes"></span>
+            <div>Katılacağım</div>
+          </label>
+
+          <label class="heart-option">
+            <input type="radio" name="rsvp" value="Katılamayacağım">
+            <span class="heart no"></span>
+            <div>Katılamayacağım</div>
+          </label>
+        </div>
+
+        <label class="form-field">
+          İsim:
+          <input type="text" name="name" required>
+        </label>
+
+        <label class="form-field">
+          Kaç kişi geleceksiniz?
+          <input type="number" name="guests" min="1" max="10" required>
+        </label>
+
+        <label class="form-field">
+          Hangi etkinliklere katılacaksınız?<br>
+          <label><input type="checkbox" name="events[]" value="Erkek Kınası"> Erkek Kınası</label>
+          <label><input type="checkbox" name="events[]" value="Düğün"> Düğün</label>
+        </label>
+
+        <label class="form-field">
+          Mesajınız:
+          <textarea name="message" rows="3" placeholder="Bize bir şey yazmak ister misiniz?"></textarea>
+        </label>
+        
+        <button type="submit" style="padding: 0.5rem 1.5rem; background: var(--accent); color: white; border: none; border-radius: 6px;">Gönder</button>
+      </form>
+    </section>
   </main>
-
-    
-
 
   <script>
     const pad = n => String(n).padStart(2, '0');
-
     function startCountdown(elId, dateStr) {
       const target = new Date(dateStr).getTime();
       const el     = document.getElementById(elId);
-
       function update() {
         const diff = target - Date.now();
         if (diff <= 0) {
-          el.textContent = '⏳ Başladı! 🎉';
+          el.textContent = '⏳ Başladı! 🎉';
           clearInterval(t);
           return;
         }
@@ -176,39 +296,35 @@
         const m = Math.floor(diff / 60000)     % 60;
         const h = Math.floor(diff / 3600000)   % 24;
         const d = Math.floor(diff / 86400000);
-        el.textContent = `⏳ ${d} gün  ${pad(h)} saat  ${pad(m)} dakika  ${pad(s)} saniye`;
+        el.textContent = `⏳ ${d} gün ${pad(h)} saat ${pad(m)} dakika ${pad(s)} saniye`;
       }
       update();
       const t = setInterval(update, 1000);
     }
-
     startCountdown('countdown-preparty', '2025-07-19T19:00:00+03:00');
     startCountdown('countdown-wedding',  '2025-07-21T17:00:00+03:00');
   </script>
+
   <script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const vid = document.getElementById('wedding‑video');
-
-    const unlock = () => { vid.play(); document.removeEventListener('click', unlock); };
-    document.addEventListener('click', unlock, { once: true });
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
-            vid.play().catch(() => {});
-          } else {
-            vid.pause();
-          }
-        });
-      },
-      { threshold: 0.5 } 
-    );
-
-    observer.observe(vid);
-  });
-</script>
-
+    document.addEventListener('DOMContentLoaded', () => {
+      const vid = document.getElementById('wedding‑video');
+      const unlock = () => { vid.play(); document.removeEventListener('click', unlock); };
+      document.addEventListener('click', unlock, { once: true });
+      const observer = new IntersectionObserver(
+        entries => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+              vid.play().catch(() => {});
+            } else {
+              vid.pause();
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      observer.observe(vid);
+    });
+  </script>
 
 </body>
 </html>
